@@ -1,10 +1,16 @@
 package com.projeto.project_spring.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "td_user")
 public class User implements Serializable { // transforma em cadeia de bits para trafegar em rede
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
