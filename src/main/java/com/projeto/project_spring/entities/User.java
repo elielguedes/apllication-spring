@@ -1,5 +1,6 @@
 package com.projeto.project_spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,12 +19,13 @@ public class User implements Serializable { // transforma em cadeia de bits para
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "client")
-    private List<Order> Orders = new ArrayList<>();
-
     public User(){
 
     }
+
+    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    private List<Order> Orders = new ArrayList<>();
 
     public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
