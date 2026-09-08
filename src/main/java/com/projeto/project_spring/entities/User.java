@@ -3,6 +3,7 @@ package com.projeto.project_spring.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.*;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,9 @@ public class User implements Serializable { // transforma em cadeia de bits para
     private String email;
     private String phone;
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> Orders = new ArrayList<>();
 
     public User(){
 
@@ -67,6 +71,14 @@ public class User implements Serializable { // transforma em cadeia de bits para
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return Orders;
+    }
+
+    public void add(Order order){
+        Orders.add(order);
     }
 
     @Override
