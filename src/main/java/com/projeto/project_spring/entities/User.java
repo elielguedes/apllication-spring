@@ -17,6 +17,8 @@ public class User implements Serializable { // transforma em cadeia de bits para
     private String name;
     private String email;
     private String phone;
+
+    @JsonIgnore
     private String password;
 
     public User(){
