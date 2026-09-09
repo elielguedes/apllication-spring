@@ -18,7 +18,7 @@ public class Order implements Serializable {
     private Instant moment;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id") // chave estrangeira
     private User client;
 
     public Order(){

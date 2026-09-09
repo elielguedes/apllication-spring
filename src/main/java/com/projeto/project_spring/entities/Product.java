@@ -19,8 +19,10 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-
-    @Transient
+    //transformar essas coleções em tabelas de associações
+    @ManyToMany
+    @JoinTable(name = "td_product_category",
+    joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "catogory_id"))
     private Set<Category> category = new HashSet<>(); // para garantir não haver repetição em catorgoryes
 
     public Product(){
