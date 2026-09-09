@@ -2,6 +2,7 @@ package com.projeto.project_spring.services;
 
 import com.projeto.project_spring.entities.User;
 import com.projeto.project_spring.repositories.UserRepository;
+import com.projeto.project_spring.services.exception.ResourceNotFoudException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UseService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoudException(id));
     }
 
     public User create(User obj){
