@@ -1,7 +1,7 @@
 package com.projeto.project_spring.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.projeto.project_spring.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,14 +27,25 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> item = new HashSet<>();
 
+    private Integer status;
+
     public Order(){
 
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus status, User client) {
         this.id = id;
         this.moment = moment;
+        setStatus(status);
         this.client = client;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getClient() {
@@ -45,12 +56,13 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public Long getId() {
-        return id;
+    public OrderStatus getStatus() {
+        return OrderStatus.valueOf(status);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStatus(OrderStatus status) {
+        if(status != null)
+            this.status = status.getCode();
     }
 
     public Instant getMoment() {
