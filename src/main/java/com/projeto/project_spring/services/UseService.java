@@ -2,8 +2,11 @@ package com.projeto.project_spring.services;
 
 import com.projeto.project_spring.entities.User;
 import com.projeto.project_spring.repositories.UserRepository;
+import com.projeto.project_spring.services.exception.DataBaseException;
 import com.projeto.project_spring.services.exception.ResourceNotFoudException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +32,14 @@ public class UseService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+            if(repository.existsById(id)){
+                throw new ResourceNotFoudException(id);
+            }
+        }catch(DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj){
